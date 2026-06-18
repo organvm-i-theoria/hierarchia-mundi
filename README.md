@@ -93,6 +93,13 @@ Like a painter sitting by a landscape, this repository is an AI trying to captur
     └── null                 # Black holes — where information meets its limits
 ```
 
+## Activation Status
+
+Activation audit `EV-2026-06-11-200211` is recorded as `park`: shipped-test
+evidence for a live URL, installable package, runnable release, and documented
+execution path was not documented in the audit record. See
+[doc/activation-audits/EV-2026-06-11-200211.md](doc/activation-audits/EV-2026-06-11-200211.md).
+
 ## The Type System
 
 The `hierarchia/` Python package provides typed, composable, executable models of the hierarchy. Every `[section]` in every file becomes a `Module` — a Pydantic model with an id, type, scale, inputs, outputs, cross-references, and properties. The hierarchy itself becomes a `Hierarchia` — a structured compendium that can be searched, filtered, traversed, and validated programmatically.
