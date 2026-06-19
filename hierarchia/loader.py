@@ -85,7 +85,8 @@ def _make_stratum_id(rel_path: str) -> str:
     """Convert filesystem path to a dotted stratum id.
 
     sys/gravity.conf → sys.gravity
-    usr/culture/belief_systems/classical_mythology.db → usr.culture.belief_systems.classical_mythology
+    usr/culture/belief_systems/classical_mythology.db
+        → usr.culture.belief_systems.classical_mythology
     """
     p = Path(rel_path)
     parts = list(p.parent.parts) + [p.stem]

@@ -95,10 +95,23 @@ Like a painter sitting by a landscape, this repository is an AI trying to captur
 
 ## Activation Status
 
-Activation audit `EV-2026-06-11-200211` is recorded as `park`: shipped-test
-evidence for a live URL, installable package, runnable release, and documented
-execution path was not documented in the audit record. See
-[doc/activation-audits/EV-2026-06-11-200211.md](doc/activation-audits/EV-2026-06-11-200211.md).
+[![CI](https://github.com/organvm-i-theoria/hierarchia-mundi/actions/workflows/ci.yml/badge.svg)](https://github.com/organvm-i-theoria/hierarchia-mundi/actions/workflows/ci.yml)
+
+Activation audit `EV-2026-06-19-111753` is recorded as `ship-now`, superseding
+the prior `park` (`EV-2026-06-11-200211`). The package is shipped with durable,
+reviewer-verifiable evidence: CI installs from a clean checkout and runs the
+test suite on Python 3.11–3.13 on every push, and a tag-driven release workflow
+builds the sdist + wheel and publishes them. Reproduce from a clean checkout:
+
+```bash
+pip install -e ".[dev]"
+ruff check .
+pytest -q
+```
+
+See [doc/activation-audits/EV-2026-06-19-111753.md](doc/activation-audits/EV-2026-06-19-111753.md)
+for the full evidence record and the prior
+[park audit](doc/activation-audits/EV-2026-06-11-200211.md).
 
 ## The Type System
 

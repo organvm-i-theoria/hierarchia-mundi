@@ -140,7 +140,8 @@ class ExecutableModule:
         """Validate content against this module's rules."""
         system = self._build_system_prompt("VALIDATE")
         prompt = (
-            f"Validate the following content against the rules and properties of {self.module.name}.\n"
+            f"Validate the following content against the rules and "
+            f"properties of {self.module.name}.\n"
             f"Check each property and cross-reference.\n\n"
             f"Content:\n{content}"
         )
