@@ -95,23 +95,21 @@ Like a painter sitting by a landscape, this repository is an AI trying to captur
 
 ## Activation Status
 
-[![CI](https://github.com/organvm-i-theoria/hierarchia-mundi/actions/workflows/ci.yml/badge.svg)](https://github.com/organvm-i-theoria/hierarchia-mundi/actions/workflows/ci.yml)
+Activation audit `EV-2026-06-19-ship-now` is recorded as `ship-now`: the package
+is installable, runnable, releasable, and continuously tested. CI installs the
+package and runs `ruff`, `pytest`, and the CLI smoke path on Python 3.11–3.13
+for every push and pull request; a `vX.Y.Z` tag builds the sdist + wheel and
+attaches them to a GitHub Release. This supersedes the prior `park` verdict
+(`EV-2026-06-11-200211`). See
+[doc/activation-audits/EV-2026-06-19-ship-now.md](doc/activation-audits/EV-2026-06-19-ship-now.md).
 
-Activation audit `EV-2026-06-19-111753` is recorded as `ship-now`, superseding
-the prior `park` (`EV-2026-06-11-200211`). The package is shipped with durable,
-reviewer-verifiable evidence: CI installs from a clean checkout and runs the
-test suite on Python 3.11–3.13 on every push, and a tag-driven release workflow
-builds the sdist + wheel and publishes them. Reproduce from a clean checkout:
+Run it from a clean checkout in three commands:
 
 ```bash
 pip install -e ".[dev]"
-ruff check .
 pytest -q
+hierarchia stats
 ```
-
-See [doc/activation-audits/EV-2026-06-19-111753.md](doc/activation-audits/EV-2026-06-19-111753.md)
-for the full evidence record and the prior
-[park audit](doc/activation-audits/EV-2026-06-11-200211.md).
 
 ## The Type System
 
@@ -136,6 +134,17 @@ cosmic = reg.by_scale(Scale.COSMIC)    # 124 cosmic-scale modules
 # Validate cross-references
 from hierarchia.validator import validate_hierarchy
 report = validate_hierarchy(".")       # 0 errors, 58 warnings (unresolved xrefs)
+```
+
+### Command line
+
+The package ships a `hierarchia` console script (also runnable as `python -m hierarchia`):
+
+```bash
+hierarchia stats                 # stratum/module/scale breakdown of all 42 strata
+hierarchia search entropy        # find modules by name or description
+hierarchia validate              # structural + cross-reference check; exits non-zero on errors
+hierarchia export -o out.json    # dump the full typed hierarchy as JSON
 ```
 
 Install from GitHub: `pip install git+https://github.com/organvm-i-theoria/hierarchia-mundi`
