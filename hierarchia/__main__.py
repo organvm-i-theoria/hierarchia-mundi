@@ -8,7 +8,7 @@ A single runnable entry point over the typed hierarchy. From a clean checkout:
     hierarchia validate
     hierarchia export -o hierarchia.json
 
-Every subcommand loads the 42 strata / 676 modules from the repository tree
+Every subcommand loads the 41 strata / 675 modules from the repository tree
 and reports on them. `validate` exits non-zero when structural errors exist,
 which makes it usable as a CI gate.
 """
