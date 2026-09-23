@@ -4,8 +4,8 @@ Source: https://github.com/organvm-i-theoria/hierarchia-mundi/issues/1
 
 ## Result
 
-- Identity: Typed, executable model of reality's structure — a 42-stratum /
-  676-module hierarchy with a working Pydantic loader / registry / executor /
+- Identity: Typed, executable model of reality's structure — a 41-stratum /
+  675-module hierarchy with a working Pydantic loader / registry / executor /
   validator package.
 - Frozen state (prior): built-never-deployed (0 releases, no PyPI, Pages 404,
   no CI workflows)
@@ -43,7 +43,7 @@ hierarchia stats
 ```
 
 `pytest` exercises the loader, registry, executor, validator, and CLI against
-the real 676-module corpus. `hierarchia stats` loads all 42 strata and prints
+the real 675-module corpus. `hierarchia stats` loads all 41 strata and prints
 the stratum / module / scale breakdown. `hierarchia validate` runs structural
 and cross-reference validation and exits non-zero on structural errors, which
 makes it usable as an independent integrity gate. The CI workflow performs
