@@ -91,18 +91,13 @@ def validate_hierarchy(repo_root: Path | str) -> ValidationReport:
             seen_ids[module.id] = stratum.path
 
     # Validate cross-references
-    all_paths = {s.path for s in strata.values()}
+    normalized_paths = {s.path.strip("/") for s in strata.values()}
     for stratum in strata.values():
         for module in stratum.modules:
             for xref in module.cross_refs:
                 report.cross_refs_found += 1
                 # Check if the cross-reference resolves to a known stratum path
-                resolved = False
-                for path in all_paths:
-                    if xref.lstrip("/") in path or path in xref:
-                        resolved = True
-                        break
-                if resolved:
+                if xref.strip("/") in normalized_paths:
                     report.cross_refs_resolved += 1
                 else:
                     report.issues.append(ValidationIssue(
