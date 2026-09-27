@@ -74,7 +74,9 @@ class _ValidationJudgment(BaseModel):
         for entries in (self.criteria_met, self.criteria_failed, self.suggestions):
             if any(not item.strip() for item in entries):
                 raise ValueError("Blank judgment entries are not allowed")
-        if set(self.criteria_met) & set(self.criteria_failed):
+        met = {" ".join(item.split()).casefold() for item in self.criteria_met}
+        failed = {" ".join(item.split()).casefold() for item in self.criteria_failed}
+        if met & failed:
             raise ValueError("A criterion cannot both pass and fail")
         if self.is_valid and (self.criteria_failed or not self.criteria_met):
             raise ValueError("A positive judgment requires evidence and no failures")
