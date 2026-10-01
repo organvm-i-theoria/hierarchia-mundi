@@ -120,7 +120,7 @@ from hierarchia.loader import load_hierarchia
 from hierarchia.registry import get_registry
 from hierarchia import ModuleType, Scale
 
-# Load all 42 strata, 676 modules
+# Load all 41 strata, 675 modules
 h = load_hierarchia(".")
 
 # Search by keyword
@@ -133,7 +133,7 @@ cosmic = reg.by_scale(Scale.COSMIC)    # 124 cosmic-scale modules
 
 # Validate cross-references
 from hierarchia.validator import validate_hierarchy
-report = validate_hierarchy(".")       # 0 errors, 58 warnings (unresolved xrefs)
+report = validate_hierarchy(".")       # 0 errors, 43 warnings (unresolved xrefs)
 ```
 
 ### Command line
@@ -141,7 +141,7 @@ report = validate_hierarchy(".")       # 0 errors, 58 warnings (unresolved xrefs
 The package ships a `hierarchia` console script (also runnable as `python -m hierarchia`):
 
 ```bash
-hierarchia stats                 # stratum/module/scale breakdown of all 42 strata
+hierarchia stats                 # stratum/module/scale breakdown of all 41 strata
 hierarchia search entropy        # find modules by name or description
 hierarchia validate              # structural + cross-reference check; exits non-zero on errors
 hierarchia export -o out.json    # dump the full typed hierarchy as JSON

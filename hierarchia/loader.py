@@ -41,10 +41,14 @@ HIERARCHY_EXTENSIONS = {
 }
 
 # Directories we skip (not hierarchy content)
-SKIP_DIRS = {"doc", "hierarchia", "tests", "__pycache__", ".git", ".github", "node_modules"}
+SKIP_DIRS = {
+    "doc", "hierarchia", "tests", "__pycache__", ".git", ".github", "node_modules", ".claude"
+}
 
 # Files at root that are not hierarchy strata
-SKIP_FILES = {"README.md", "seed.yaml", "pyproject.toml", "hierarchia.json", ".DS_Store"}
+SKIP_FILES = {
+    "README.md", "seed.yaml", "pyproject.toml", "hierarchia.json", "DISCOVERY.md", ".DS_Store"
+}
 
 # Pattern for [section_name] headers
 SECTION_RE = re.compile(r"^\[([^\]]+)\]")
