@@ -8,7 +8,7 @@ Two levels of validation:
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from hierarchia.loader import discover_hierarchy_files, parse_file
 
@@ -45,6 +45,30 @@ class ValidationReport:
     @property
     def warnings(self) -> list[ValidationIssue]:
         return [i for i in self.issues if i.severity == "warning"]
+
+
+def _canonical_path_identity(path: str) -> str:
+    """Normalize only optional leading and redundant trailing path separators."""
+    return path.strip().strip("/")
+
+
+def _known_cross_ref_targets(paths: set[str]) -> set[str]:
+    """Return exact file and populated parent-directory identities for known strata."""
+    targets: set[str] = set()
+    for path in paths:
+        canonical = _canonical_path_identity(path)
+        if not canonical:
+            continue
+
+        current = PurePosixPath(canonical)
+        targets.add(str(current))
+
+        parent = current.parent
+        while str(parent) not in ("", "."):
+            targets.add(str(parent))
+            parent = parent.parent
+
+    return targets
 
 
 def validate_hierarchy(repo_root: Path | str) -> ValidationReport:
@@ -90,18 +114,14 @@ def validate_hierarchy(repo_root: Path | str) -> ValidationReport:
                 ))
             seen_ids[module.id] = stratum.path
 
-    # Validate cross-references
-    all_paths = {s.path for s in strata.values()}
+    # Validate cross-references by canonical path identity. Directory references
+    # remain valid when they name a populated parent directory of a known stratum.
+    known_targets = _known_cross_ref_targets({s.path for s in strata.values()})
     for stratum in strata.values():
         for module in stratum.modules:
             for xref in module.cross_refs:
                 report.cross_refs_found += 1
-                # Check if the cross-reference resolves to a known stratum path
-                resolved = False
-                for path in all_paths:
-                    if xref.lstrip("/") in path or path in xref:
-                        resolved = True
-                        break
+                resolved = _canonical_path_identity(xref) in known_targets
                 if resolved:
                     report.cross_refs_resolved += 1
                 else:
